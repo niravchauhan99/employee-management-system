@@ -1,26 +1,26 @@
 import './App.css';
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import Header from '../src/components/HeaderComponent';
-import Footer from '../src/components/FooterComponent';
-import AddEmployeeComponent from '../src/components/AddEmployeeComponent';
-import ListemployeeComponent from './components/ListemployeeComponent';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import FooterComponent from './components/FooterComponent';
+import HeaderComponent from './components/HeaderComponent';
+import ListEmployeeComponent from './components/ListEmployeeComponent';
+import AddEmployeeComponent from './components/AddEmployeeComponent';
 
 function App() {
   return (
     <div>
-   <BrowserRouter>
-    <Header Component/>
-    <div className= "container">
-          <Routes>
-              <Route exact path = "/" component = {ListemployeeComponent}></Route>
-              <Route path = "/employees" component = {ListemployeeComponent}></Route>
+      <Router>
+        <HeaderComponent />
+        <div className= "container">
+          <Switch>
+              <Route exact path = "/" component = {ListEmployeeComponent}></Route>
+              <Route path = "/employees" component = {ListEmployeeComponent}></Route>
               <Route path = "/add-employee" component = {AddEmployeeComponent} ></Route>
               <Route path = "/edit-employee/:id" component = {AddEmployeeComponent}></Route>
-            </Routes>
+            </Switch>
         </div>
-    <Footer Component/>
-   </BrowserRouter>
-   </div>
+        <FooterComponent />
+        </Router>
+    </div>
   );
 }
 

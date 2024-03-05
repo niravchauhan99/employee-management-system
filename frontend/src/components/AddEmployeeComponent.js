@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams } from 'react-router-dom';
-import EmployeeService from '../services/EmployeeService';
+import React, {useState, useEffect} from 'react'
+import {Link, useHistory, useParams } from 'react-router-dom';
+import EmployeeService from '../services/EmployeeService'
 
 const AddEmployeeComponent = () => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [emailId, setEmailId] = useState('')
-    const history = useNavigate();
+    const history = useHistory();
     const {id} = useParams();
 
     const saveOrUpdateEmployee = (e) => {
@@ -45,7 +45,7 @@ const AddEmployeeComponent = () => {
         }).catch(error => {
             console.log(error)
         })
-    },[])
+    }, [])
 
     const title = () => {
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import EmployeeService from '../services/EmployeeService'
 
-const ListemployeeComponent = () => {
+const ListEmployeeComponent = () => {
 
     const [employees, setEmployees] = useState([])
 
@@ -65,4 +65,4 @@ const ListemployeeComponent = () => {
     )
 }
 
-export default ListemployeeComponent
+export default ListEmployeeComponent
