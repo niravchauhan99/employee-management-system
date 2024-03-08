@@ -24,8 +24,7 @@ code {
   border-top: 2px solid #1c3838;
 }
 
-/* Responsive */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) { /* Responsive */
   .footer {
     height: 80px; 
     font-size: 16px;
@@ -55,7 +54,7 @@ a.btn.btn-primary.mb-2:hover {
 }
 
 html {
-  background-color: white;
+  background-color: rgb(71, 194, 186);
 }
 
 input.form-control {
@@ -64,8 +63,8 @@ input.form-control {
 }
 
 h2.text-center {
-  color: rgb(19, 6, 6);
-  background-color: #30a99b;
+  color: rgb(211, 209, 209);
+  background-color: #275252;
   font-style: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -92,5 +91,18 @@ label.form-label:hover {
 }
 
 div.navbar-brand {
-  padding-left: 15px;
-} 
+  padding-left: 27px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+footer.footer {
+  background-color: #1c3838;
+}
+
+div.card-body {
+  background-color: #275252;
+}
+
+div.container {
+  max-width: 100%;
+}
