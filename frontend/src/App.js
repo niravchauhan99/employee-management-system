@@ -1,4 +1,4 @@
-import './App.css';
+import './index.css';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
