@@ -8,12 +8,36 @@ const AddEmployeeComponent = () => {
     const [lastName, setLastName] = useState('')
     const [emailId, setEmailId] = useState('')
     const history = useHistory();
+    const [firstNameError, setFirstNameError] = useState('');
+    const [lastNameError, setLastNameError] = useState('');
+    const [emailIdError, setEmailIdError] = useState('');
     const {id} = useParams();
 
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
 
         const employee = {firstName, lastName, emailId}
+        
+        if (!firstName.trim()) {
+            setFirstNameError('First name is required');
+            return;
+        } else {
+            setFirstNameError('');
+        }
+
+        if (!lastName.trim()) {
+            setLastNameError('Last name is required');
+            return;
+        } else {
+            setLastNameError('');
+        }
+
+        if (!emailId.trim()) {
+            setEmailIdError('Email ID is required');
+            return;
+        } else {
+            setEmailIdError('');
+        }
 
         if(id){
             EmployeeService.updateEmployee(id, employee).then((response) => {
@@ -37,7 +61,6 @@ const AddEmployeeComponent = () => {
     }
 
     useEffect(() => {
-
         EmployeeService.getEmployeeById(id).then((response) =>{
             setFirstName(response.data.firstName)
             setLastName(response.data.lastName)
@@ -70,40 +93,52 @@ const AddEmployeeComponent = () => {
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> First Name :</label>
                                     <input
-                                        type = "text"
+                                        type = "text" required
                                         placeholder = "Enter first name"
-                                        name = "firstName"
-                                        className = "form-control"
+                                        name = "firstName" 
+                                        className={`form-control ${firstNameError ? 'is-invalid' : ''}`}
                                         value = {firstName}
-                                        onChange = {(e) => setFirstName(e.target.value)}
+                                        onChange = {(e) => {
+                                            setFirstName(e.target.value);
+                                            setFirstNameError('');
+                                        }}
                                     >
                                     </input>
+                                    {firstNameError && <div className="invalid-feedback">{firstNameError}</div>}
                                 </div>
 
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Last Name :</label>
                                     <input
-                                        type = "text"
+                                        type = "text" required
                                         placeholder = "Enter last name"
-                                        name = "lastName"
-                                        className = "form-control"
+                                        name = "lastName" 
+                                        className={`form-control ${lastNameError ? 'is-invalid' : ''}`}
                                         value = {lastName}
-                                        onChange = {(e) => setLastName(e.target.value)}
+                                        onChange = {(e) => {
+                                            setLastName(e.target.value);
+                                            setLastNameError('')
+                                        }}
                                     >
                                     </input>
+                                    {lastNameError && <div className="invalid-feedback">{lastNameError}</div>}
                                 </div>
 
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Email Id :</label>
                                     <input
-                                        type = "email"
+                                        type = "email" required
                                         placeholder = "Enter email Id"
-                                        name = "emailId"
-                                        className = "form-control"
+                                        name = "emailId" 
+                                        className={`form-control ${emailIdError ? 'is-invalid' : ''}`}
                                         value = {emailId}
-                                        onChange = {(e) => setEmailId(e.target.value)}
+                                        onChange = {(e) => {
+                                            setEmailId(e.target.value);
+                                            setEmailIdError('');
+                                        }}
                                     >
                                     </input>
+                                    {emailIdError && <div className="invalid-feedback">{emailIdError}</div>}
                                 </div>
 
                                 <button className = "btn btn-success" onClick = {(e) => saveOrUpdateEmployee(e)} >Submit </button>
