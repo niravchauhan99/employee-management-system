@@ -1,8 +1,9 @@
 package net.javaguides.springboot.controller;
 
-import net.javaguides.springboot.repository.EmployeeRepository;
+import net.javaguides.springboot.repository.*;
 import net.javaguides.springboot.exception.ResourceNotFoundException;
-import net.javaguides.springboot.model.Employee;
+import net.javaguides.springboot.model.*;
+import net.javaguides.springboot.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,19 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
     @GetMapping
     public List<Employee> getAllEmployees(){
         return employeeRepository.findAll();
     }
 
     // build create employee REST API
-    @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
-    }
+    // @PostMapping
+    // public Employee createEmployee(@RequestBody Employee employee) {
+    //     return employeeRepository.save(employee);
+    // }
 
     // build get employee by id REST API
     @GetMapping("{id}")
@@ -64,4 +68,16 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
+// //added
+    @PostMapping
+public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+    // Check if departmentId is provided and set the department
+    if (employee.getDepartment() != null && employee.getDepartment().getId() != 0) {
+        Department department = departmentRepository.findById(employee.getDepartment().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + employee.getDepartment().getId()));
+        employee.setDepartment(department);
+    }
+    Employee createdEmployee = employeeRepository.save(employee);
+    return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+}
 }
